@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculation System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px 15px;
+            font-family: Arial, sans-serif;
+            background: #eef4ff;
+            color: #172554;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 28px rgba(37, 99, 235, 0.13);
+        }
+
+        header {
+            text-align: center;
+            background: #2563eb;
+            color: white;
+            padding: 25px 15px;
+            border-radius: 13px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 27px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        h2 {
+            color: #1d4ed8;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2563eb;
+        }
+
+        .subjects {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        button {
+            flex: 1;
+            min-width: 130px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .calculate {
+            background: #2563eb;
+            color: white;
+        }
+
+        .save {
+            background: #15803d;
+            color: white;
+        }
+
+        .reset {
+            background: #e2e8f0;
+            color: #172554;
+        }
+
+        button:hover {
+            opacity: 0.88;
+        }
+
+        #result {
+            display: none;
+            margin-top: 28px;
+            padding: 22px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+        }
+
+        #result h2 {
+            margin-top: 0;
+            color: #166534;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #dbeafe;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .status {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .pass {
+            color: #15803d;
+        }
+
+        .fail {
+            color: #dc2626;
+        }
+
+        .message {
+            margin-top: 15px;
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 18px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .subjects {
+                grid-template-columns: 1fr;
+            }
+
+            .result-row {
+                font-size: 14px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .buttons, footer {
+                display: none;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <header>
+            <h1>GRADE CALCULATION SYSTEM</h1>
+            <p>Calculate your marks, percentage and final grade</p>
+        </header>
+
+        <form id="gradeForm">
+            <h2>Student Information</h2>
+
+            <div class="form-group">
+                <label for="studentName">Student Name</label>
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter student name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="rollNumber">Roll Number</label>
+                <input
+                    type="text"
+                    id="rollNumber"
+                    placeholder="Enter roll number"
+                    required
+                >
+            </div>
+
+            <h2>Enter Subject Marks</h2>
+            <p>Enter marks between 0 and 100 for each subject.</p>
+
+            <div class="subjects">
+                <div class="form-group">
+                    <label for="computer">Computer Science</label>
+                    <input
+                        type="number"
+                        id="computer"
+                        min="0"
+                        max="100"
+                        step="any"
+                        placeholder="0–100"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="maths">Mathematics</label>
+                    <input
+                        type="number"
+                        id="maths"
+                        min="0"
+                        max="100"
+                        step="any"
+                        placeholder="0–100"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="english">English</label>
+                    <input
+                        type="number"
+                        id="english"
+                        min="0"
+                        max="100"
+                        step="any"
+                        placeholder="0–100"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div id="message" class="message" role="alert"></div>
+
+            <div class="buttons">
+                <button type="submit" class="calculate">
+                    Calculate Grade
+                </button>
+
+                <button type="button" class="save" id="saveButton">
+                    Save Report
+                </button>
+
+                <button type="button" class="reset" id="resetButton">
+                    Reset
+                </button>
+            </div>
+        </form>
+
+        <section id="result" aria-live="polite">
+            <h2>Student Result</h2>
+            <div id="resultDetails"></div>
+            <div id="status" class="status"></div>
+        </section>
+
+        <footer>
+            Grade Calculation System | Student Project
+        </footer>
+    </main>
+
+    <script>
+        const form = document.getElementById("gradeForm");
+        const result = document.getElementById("result");
+        const resultDetails = document.getElementById("resultDetails");
+        const statusBox = document.getElementById("status");
+        const message = document.getElementById("message");
+        const saveButton = document.getElementById("saveButton");
+        const resetButton = document.getElementById("resetButton");
+
+        let latestReport = "";
+
+        function getGrade(percentage) {
+            if (percentage >= 80) return "A";
+            if (percentage >= 70) return "B";
+            if (percentage >= 60) return "C";
+            if (percentage >= 40) return "D";
+            return "F";
+        }
+
+        function addRow(label, value) {
+            const row = document.createElement("div");
+            row.className = "result-row";
+
+            const left = document.createElement("span");
+            left.textContent = label;
+
+            const right = document.createElement("strong");
+            right.textContent = value;
+
+            row.appendChild(left);
+            row.appendChild(right);
+            resultDetails.appendChild(row);
+        }
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            message.textContent = "";
+            result.style.display = "none";
+
+            const name = document.getElementById("studentName").value.trim();
+            const roll = document.getElementById("rollNumber").value.trim();
+
+            const subjects = [
+                {
+                    name: "Computer Science",
+                    id: "computer"
+                },
+                {
+                    name: "Mathematics",
+                    id: "maths"
+                },
+                {
+                    name: "English",
+                    id: "english"
+                }
+            ];
+
+            if (!name || !roll) {
+                message.textContent = "Please enter the student name and roll number.";
+                return;
+            }
+
+            const marks = [];
+
+            for (const subject of subjects) {
+                const field = document.getElementById(subject.id);
+                const value = field.valueAsNumber;
+
+                if (
+                    field.value.trim() === "" ||
+                    !Number.isFinite(value) ||
+                    value < 0 ||
+                    value > 100
+                ) {
+                    message.textContent =
+                        "Please enter valid marks from 0 to 100 for every subject.";
+                    field.focus();
+                    return;
+                }
+
+                marks.push({
+                    name: subject.name,
+                    value: value
+                });
+            }
+
+            const total = marks.reduce(
+                (sum, subject) => sum + subject.value, 0
+            );
+
+            const percentage = total / marks.length;
+            const grade = getGrade(percentage);
+            const passed = marks.every(subject => subject.value >= 40);
+
+            resultDetails.replaceChildren();
+
+            addRow("Student Name", name);
+            addRow("Roll Number", roll);
+
+            marks.forEach(subject => {
+                addRow(
+                    subject.name,
+                    subject.value + " / 100"
+                );
+            });
+
+            addRow("Total Marks", total + " / 300");
+            addRow("Percentage", percentage.toFixed(2) + "%");
+            addRow("Final Grade", grade);
+
+            statusBox.textContent = passed ? "RESULT: PASS" : "RESULT: FAIL";
+            statusBox.className = "status " + (passed ? "pass" : "fail");
+
+            result.style.display = "block";
+
+            latestReport =
+                "GRADE CALCULATION SYSTEM\n" +
+                "========================\n" +
+                "Student Name: " + name + "\n" +
+                "Roll Number: " + roll + "\n\n" +
+                marks.map(subject =>
+                    subject.name + ": " + subject.value + " / 100"
+                ).join("\n") +
+                "\n\nTotal Marks: " + total + " / 300" +
+                "\nPercentage: " + percentage.toFixed(2) + "%" +
+                "\nFinal Grade: " + grade +
+                "\nResult: " + (passed ? "PASS" : "FAIL") +
+                "\n\nGrade Calculation System";
+
+            result.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        });
+
+        saveButton.addEventListener("click", function() {
+            if (!latestReport) {
+                message.textContent =
+                    "Please calculate a student's grade before saving the report.";
+                return;
+            }
+
+            const blob = new Blob(
+                [latestReport],
+                { type: "text/plain;charset=utf-8" }
+            );
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download = "Grade_Report.txt";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            URL.revokeObjectURL(url);
+        });
+
+        resetButton.addEventListener("click", function() {
+            form.reset();
+            result.style.display = "none";
+            resultDetails.replaceChildren();
+            statusBox.textContent = "";
+            message.textContent = "";
+            latestReport = "";
+        });
+    </script>
+</body>
+</html>
