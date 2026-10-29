@@ -293,46 +293,37 @@
             <h2>Enter Subject Marks</h2>
             <p>Enter marks between 0 and 100 for each subject.</p>
 
-            <div class="subjects">
-                <div class="form-group">
-                    <label for="computer">Computer Science</label>
-                    <input
-                        type="number"
-                        id="computer"
-                        min="0"
-                        max="100"
-                        step="any"
-                        placeholder="0–100"
-                        required
-                    >
-                </div>
+           <div class="subjects">
+    <div class="form-group">
+        <label for="computer">Computer Science</label>
+        <input type="number" id="computer" min="0" max="100" step="any" placeholder="0–100" required>
+    </div>
 
-                <div class="form-group">
-                    <label for="maths">Mathematics</label>
-                    <input
-                        type="number"
-                        id="maths"
-                        min="0"
-                        max="100"
-                        step="any"
-                        placeholder="0–100"
-                        required
-                    >
-                </div>
+    <div class="form-group">
+        <label for="maths">Mathematics</label>
+        <input type="number" id="maths" min="0" max="100" step="any" placeholder="0–100" required>
+    </div>
 
-                <div class="form-group">
-                    <label for="english">English</label>
-                    <input
-                        type="number"
-                        id="english"
-                        min="0"
-                        max="100"
-                        step="any"
-                        placeholder="0–100"
-                        required
-                    >
-                </div>
-            </div>
+    <div class="form-group">
+        <label for="english">English</label>
+        <input type="number" id="english" min="0" max="100" step="any" placeholder="0–100" required>
+    </div>
+
+    <div class="form-group">
+        <label for="physics">Engineering Physics</label>
+        <input type="number" id="physics" min="0" max="100" step="any" placeholder="0–100" required>
+    </div>
+
+    <div class="form-group">
+        <label for="chemistry">Engineering Chemistry</label>
+        <input type="number" id="chemistry" min="0" max="100" step="any" placeholder="0–100" required>
+    </div>
+
+    <div class="form-group">
+        <label for="ds">Data Structures</label>
+        <input type="number" id="ds" min="0" max="100" step="any" placeholder="0–100" required>
+    </div>
+</div>
 
             <div id="message" class="message" role="alert"></div>
 
@@ -404,20 +395,14 @@
             const name = document.getElementById("studentName").value.trim();
             const roll = document.getElementById("rollNumber").value.trim();
 
-            const subjects = [
-                {
-                    name: "Computer Science",
-                    id: "computer"
-                },
-                {
-                    name: "Mathematics",
-                    id: "maths"
-                },
-                {
-                    name: "English",
-                    id: "english"
-                }
-            ];
+           const subjects = [
+    { name: "Computer Science", id: "computer" },
+    { name: "Mathematics", id: "maths" },
+    { name: "English", id: "english" },
+    { name: "Engineering Physics", id: "physics" },
+    { name: "Engineering Chemistry", id: "chemistry" },
+    { name: "Data Structures", id: "ds" }
+];
 
             if (!name || !roll) {
                 message.textContent = "Please enter the student name and roll number.";
@@ -468,7 +453,7 @@
                 );
             });
 
-            addRow("Total Marks", total + " / 300");
+            addRow("Total Marks", total + " / 600");
             addRow("Percentage", percentage.toFixed(2) + "%");
             addRow("Final Grade", grade);
 
@@ -485,7 +470,7 @@
                 marks.map(subject =>
                     subject.name + ": " + subject.value + " / 100"
                 ).join("\n") +
-                "\n\nTotal Marks: " + total + " / 300" +
+                "\n\nTotal Marks: " + total + " / 600" +
                 "\nPercentage: " + percentage.toFixed(2) + "%" +
                 "\nFinal Grade: " + grade +
                 "\nResult: " + (passed ? "PASS" : "FAIL") +
@@ -519,7 +504,6 @@
             link.remove();
 
             URL.revokeObjectURL(url);
-        });
 
         resetButton.addEventListener("click", function() {
             form.reset();
